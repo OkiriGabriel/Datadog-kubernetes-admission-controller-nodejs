@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    tags.datadoghq.com/env: development
+    tags.datadoghq.com/service: advertisements
+    tags.datadoghq.com/version: "1.0"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tags.datadoghq.com/env: development
+      tags.datadoghq.com/service: advertisements
+      tags.datadoghq.com/version: "1.0" 
+      app: random-api
+  template:
+    metadata:
+      labels:
+        app: random-api
+    spec:
+      containers:
+      - name: react-app
+        image: public.ecr.aws/c2m9p1a4/react-app
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 80
+      - name: DD_LOGS_INJECTION
+        value: "true"
+      - name: DD_ANALYTICS_ENABLED
+        value: "true"
+      - name: DD_PROFILING_ENABLED
+        value: "true"

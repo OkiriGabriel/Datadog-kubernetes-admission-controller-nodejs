@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    tags.datadoghq.com/service: advertisements
+    tags.datadoghq.com/env: development
+    app: random-api
+  name: random-api
+spec:
+  selector:
+    tags.datadoghq.com/service: advertisements
+    tags.datadoghq.com/env: development
+    app: random-api
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+
+
+    
